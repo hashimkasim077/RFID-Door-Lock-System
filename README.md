@@ -77,6 +77,7 @@ Add it to the program:
 
 ```
 byte allowedUID[4] = {0x3A, 0x7F, 0xB2, 0x11};
+
 ```
 
 ---
@@ -88,17 +89,4 @@ byte allowedUID[4] = {0x3A, 0x7F, 0xB2, 0x11};
 * School or lab entry system
 * Arduino learning projects
 
----
 
-## Future Improvements
-
-* Add **LED and buzzer indicators**
-* Store **multiple RFID cards**
-* Use **ESP32 for WiFi-based access logs**
-* Create a **mobile app control system**
-
----
-
-## License
-
-This project is open-source and free to use for learning and educational purposes.
