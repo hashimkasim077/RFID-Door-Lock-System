@@ -1,4 +1,4 @@
-# RFID Door Lock with Servo (Arduino)
+# RFID Door Lock System
 
 A simple **RFID-based smart door lock** built using **Arduino, RC522 RFID reader, and a Servo motor**.
 The system unlocks the door when an **authorized RFID card** is scanned.
