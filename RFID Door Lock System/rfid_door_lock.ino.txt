@@ -1,0 +1,46 @@
+#include <SPI.h>
+#include <MFRC522.h>
+#include <Servo.h>
+
+#define SS_PIN 10
+#define RST_PIN 9
+#define SERVO_PIN 6
+
+const int LOCK_ANGLE = 0;
+const int OPEN_ANGLE = 90;
+const int OPEN_TIME = 3000;
+
+MFRC522 rfid(SS_PIN, RST_PIN);
+Servo doorServo;
+
+// Allowed RFID card UID
+byte allowedUID[4] = {0x12, 0x34, 0x56, 0x78};
+
+bool isAuthorized(byte *uid) {
+  for (byte i = 0; i < 4; i++) {
+    if (uid[i] != allowedUID[i]) return false;
+  }
+  return true;
+}
+
+void setup() {
+  SPI.begin();
+  rfid.PCD_Init();
+
+  doorServo.attach(SERVO_PIN);
+  doorServo.write(LOCK_ANGLE);
+}
+
+void loop() {
+
+  if (!rfid.PICC_IsNewCardPresent()) return;
+  if (!rfid.PICC_ReadCardSerial()) return;
+
+  if (isAuthorized(rfid.uid.uidByte)) {
+    doorServo.write(OPEN_ANGLE);
+    delay(OPEN_TIME);
+    doorServo.write(LOCK_ANGLE);
+  }
+
+  rfid.PICC_HaltA();
+}
